@@ -1,0 +1,48 @@
+{
+  "studio-check": {
+    "exit_code": 0,
+    "log": "production/qa/evidence/studio-check.log"
+  },
+  "studio-tools-tests": {
+    "exit_code": 0,
+    "log": "production/qa/evidence/studio-tools-tests.log"
+  },
+  "compile-gameframework": {
+    "exit_code": 0,
+    "log": "production/qa/evidence/compile-gameframework.log"
+  },
+  "compile-wordz-runtime": {
+    "exit_code": 0,
+    "log": "production/qa/evidence/compile-wordz-runtime.log"
+  },
+  "compile-wordz-editor": {
+    "exit_code": 0,
+    "log": "production/qa/evidence/compile-wordz-editor.log"
+  },
+  "framework_hashes": {
+    "checked": 627,
+    "changed": []
+  },
+  "unity_import": {
+    "status": "passed",
+    "version": "2022.3.56f1c1",
+    "scene": "Assets/Wordz/Scenes/Bootstrap.unity",
+    "actual_framework_startup": "PASS",
+    "orthographic_camera": "PASS",
+    "preview": "production/qa/evidence/bootstrap.png",
+    "log": "production/qa/evidence/unity-import-smoke.log"
+  },
+  "unity_mcp": {
+    "status": "passed",
+    "package_version": "10.2.0",
+    "endpoint": "http://127.0.0.1:8080/mcp",
+    "tools": 48,
+    "project_root": "E:/Wordz/Wordz-unity",
+    "ready": true,
+    "console_errors": 0,
+    "copied_files": 716,
+    "changed_files": [],
+    "protocol": "production/qa/evidence/mcp-protocol.json",
+    "menu_verification": "production/qa/evidence/mcp-menu-verify.json"
+  }
+}

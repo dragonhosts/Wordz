@@ -1,0 +1,1 @@
+PASS: actual GameFramework procedure entered; orthographic camera ready

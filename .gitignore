@@ -1,0 +1,39 @@
+# Unity generated directories (including nested projects)
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/[Bb]uild/
+**/[Bb]uilds/
+**/MemoryCaptures/
+**/Recordings/
+# IDE generated files
+.vs/
+.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.opendb
+*.VC.db
+# OS files
+.DS_Store
+Thumbs.db
+
+# Personal Game Studio preferences and transient local migration/runtime data
+project.local.yaml
+*.studio-tmp
+.studio-upstream/
+.studio-upstream.zip
+tools/game-studio/__pycache__/
+tools/game-studio/tests/__pycache__/
+production/session-logs/
+
+**/__pycache__/
+
+# Raw local diagnostic logs stay on this machine; publish validation summaries.
+production/qa/evidence/*.log

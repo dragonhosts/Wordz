@@ -1,0 +1,129 @@
+{
+  "description": "Wordz Game Studio native hooks; review/trust required",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/game-studio/hook.py\"",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$studioRoot = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 1 }; python (Join-Path $studioRoot 'tools/game-studio/hook.py')\"",
+            "timeout": 10,
+            "additionalContextLimit": 1500
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/game-studio/hook.py\"",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$studioRoot = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 1 }; python (Join-Path $studioRoot 'tools/game-studio/hook.py')\"",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Bash|exec_command|PowerShell"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/game-studio/hook.py\"",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$studioRoot = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 1 }; python (Join-Path $studioRoot 'tools/game-studio/hook.py')\"",
+            "timeout": 10
+          }
+        ],
+        "matcher": "apply_patch|Edit|Write"
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/game-studio/hook.py\"",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$studioRoot = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 1 }; python (Join-Path $studioRoot 'tools/game-studio/hook.py')\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/game-studio/hook.py\"",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$studioRoot = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 1 }; python (Join-Path $studioRoot 'tools/game-studio/hook.py')\"",
+            "timeout": 10,
+            "additionalContextLimit": 1500
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/game-studio/hook.py\"",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$studioRoot = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 1 }; python (Join-Path $studioRoot 'tools/game-studio/hook.py')\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/game-studio/hook.py\"",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$studioRoot = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 1 }; python (Join-Path $studioRoot 'tools/game-studio/hook.py')\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/game-studio/hook.py\"",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$studioRoot = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 1 }; python (Join-Path $studioRoot 'tools/game-studio/hook.py')\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Interrupt": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/game-studio/hook.py\"",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$studioRoot = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 1 }; python (Join-Path $studioRoot 'tools/game-studio/hook.py')\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/game-studio/hook.py\"",
+            "commandWindows": "powershell -NoProfile -NonInteractive -Command \"$studioRoot = git rev-parse --show-toplevel; if ($LASTEXITCODE -ne 0) { exit 1 }; python (Join-Path $studioRoot 'tools/game-studio/hook.py')\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,744 @@
+{
+  "skills": [
+    {
+      "name": "studio-adopt",
+      "description": "Brownfield audit — do existing artifacts actually work? Numbered migration plan. Unlike /project-stage-detect, checks compliance not existence.",
+      "workflow": ".agents/game-studio/workflows/adopt/WORKFLOW.md",
+      "entry": ".agents/skills/studio-adopt/SKILL.md"
+    },
+    {
+      "name": "studio-architecture-decision",
+      "description": "Create an ADR documenting a technical decision: context, alternatives considered, consequences.",
+      "workflow": ".agents/game-studio/workflows/architecture-decision/WORKFLOW.md",
+      "entry": ".agents/skills/studio-architecture-decision/SKILL.md"
+    },
+    {
+      "name": "studio-architecture-review",
+      "description": "Traceability matrix mapping GDD requirements to ADRs. Finds gaps, cross-ADR conflicts, engine compatibility. PASS/CONCERNS/NOT ASSESSED/FAIL.",
+      "workflow": ".agents/game-studio/workflows/architecture-review/WORKFLOW.md",
+      "entry": ".agents/skills/studio-architecture-review/SKILL.md"
+    },
+    {
+      "name": "studio-art-bible",
+      "description": "Author the Art Bible — visual identity gating asset production. Run before /map-systems.",
+      "workflow": ".agents/game-studio/workflows/art-bible/WORKFLOW.md",
+      "entry": ".agents/skills/studio-art-bible/SKILL.md"
+    },
+    {
+      "name": "studio-asset-audit",
+      "description": "Audit assets against naming conventions, file size budgets, format standards. Finds orphaned assets, missing references.",
+      "workflow": ".agents/game-studio/workflows/asset-audit/WORKFLOW.md",
+      "entry": ".agents/skills/studio-asset-audit/SKILL.md"
+    },
+    {
+      "name": "studio-asset-spec",
+      "description": "Per-asset visual specs plus AI generation prompts from GDDs and character profiles. After the art bible.",
+      "workflow": ".agents/game-studio/workflows/asset-spec/WORKFLOW.md",
+      "entry": ".agents/skills/studio-asset-spec/SKILL.md"
+    },
+    {
+      "name": "studio-balance-check",
+      "description": "Find balance outliers, broken progressions, degenerate strategies, economy imbalances in formulas and data. 'Check game balance'.",
+      "workflow": ".agents/game-studio/workflows/balance-check/WORKFLOW.md",
+      "entry": ".agents/skills/studio-balance-check/SKILL.md"
+    },
+    {
+      "name": "studio-brainstorm",
+      "description": "Guided concept ideation using professional studio techniques, player psychology, creative exploration.",
+      "workflow": ".agents/game-studio/workflows/brainstorm/WORKFLOW.md",
+      "entry": ".agents/skills/studio-brainstorm/SKILL.md"
+    },
+    {
+      "name": "studio-bug-report",
+      "description": "Structured bug report from a description, or analyze code for potential bugs. Reproduction steps, severity.",
+      "workflow": ".agents/game-studio/workflows/bug-report/WORKFLOW.md",
+      "entry": ".agents/skills/studio-bug-report/SKILL.md"
+    },
+    {
+      "name": "studio-bug-triage",
+      "description": "Re-evaluate open bugs — priority vs severity, assign to sprints, surface systemic trends. Run when the count grows.",
+      "workflow": ".agents/game-studio/workflows/bug-triage/WORKFLOW.md",
+      "entry": ".agents/skills/studio-bug-triage/SKILL.md"
+    },
+    {
+      "name": "studio-changelog",
+      "description": "Auto-generate a changelog from git commits and sprint data. Internal and player-facing versions.",
+      "workflow": ".agents/game-studio/workflows/changelog/WORKFLOW.md",
+      "entry": ".agents/skills/studio-changelog/SKILL.md"
+    },
+    {
+      "name": "studio-code-review",
+      "description": "Architectural code review — coding standards, SOLID, testability, performance concerns.",
+      "workflow": ".agents/game-studio/workflows/code-review/WORKFLOW.md",
+      "entry": ".agents/skills/studio-code-review/SKILL.md"
+    },
+    {
+      "name": "studio-consistency-check",
+      "description": "Scan GDDs against the entity registry for cross-document conflicts. Grep-first approach targets conflicting sections, different stats.",
+      "workflow": ".agents/game-studio/workflows/consistency-check/WORKFLOW.md",
+      "entry": ".agents/skills/studio-consistency-check/SKILL.md"
+    },
+    {
+      "name": "studio-content-audit",
+      "description": "Audit GDD content counts against what's implemented — planned vs built.",
+      "workflow": ".agents/game-studio/workflows/content-audit/WORKFLOW.md",
+      "entry": ".agents/skills/studio-content-audit/SKILL.md"
+    },
+    {
+      "name": "studio-create-architecture",
+      "description": "Author the architecture blueprint before code is written. Validates decisions against the pinned engine, flags knowledge gaps.",
+      "workflow": ".agents/game-studio/workflows/create-architecture/WORKFLOW.md",
+      "entry": ".agents/skills/studio-create-architecture/SKILL.md"
+    },
+    {
+      "name": "studio-create-control-manifest",
+      "description": "Flat must-do/never-do rules sheet per system and layer, extracted from Accepted ADRs. ADRs explain why; this is actionable.",
+      "workflow": ".agents/game-studio/workflows/create-control-manifest/WORKFLOW.md",
+      "entry": ".agents/skills/studio-create-control-manifest/SKILL.md"
+    },
+    {
+      "name": "studio-create-epics",
+      "description": "Turn GDDs plus architecture into epics — one per architectural module, with untraced requirements. Then /create-stories [epic-slug].",
+      "workflow": ".agents/game-studio/workflows/create-epics/WORKFLOW.md",
+      "entry": ".agents/skills/studio-create-epics/SKILL.md"
+    },
+    {
+      "name": "studio-create-stories",
+      "description": "Break one epic into implementable stories embedding TR-ID, ADR guidance, acceptance criteria. Reads the control manifest. After /create-epics.",
+      "workflow": ".agents/game-studio/workflows/create-stories/WORKFLOW.md",
+      "entry": ".agents/skills/studio-create-stories/SKILL.md"
+    },
+    {
+      "name": "studio-day-one-patch",
+      "description": "Day-one launch patch — focused fix for known issues found after gold master. Mini-sprint with QA gate and rollback.",
+      "workflow": ".agents/game-studio/workflows/day-one-patch/WORKFLOW.md",
+      "entry": ".agents/skills/studio-day-one-patch/SKILL.md"
+    },
+    {
+      "name": "studio-design-review",
+      "description": "Reviews one design document for completeness, internal consistency, implementability, and design standards. Before handing to programmers.",
+      "workflow": ".agents/game-studio/workflows/design-review/WORKFLOW.md",
+      "entry": ".agents/skills/studio-design-review/SKILL.md"
+    },
+    {
+      "name": "studio-design-system",
+      "description": "Section-by-section GDD authoring for one system — walks through each required section, cross-references dependencies.",
+      "workflow": ".agents/game-studio/workflows/design-system/WORKFLOW.md",
+      "entry": ".agents/skills/studio-design-system/SKILL.md"
+    },
+    {
+      "name": "studio-dev-story",
+      "description": "Implement a story: ADR guidelines, right programmer agent, code plus test. Then /story-done (/story-readiness before, /code-review after, at standard/full).",
+      "workflow": ".agents/game-studio/workflows/dev-story/WORKFLOW.md",
+      "entry": ".agents/skills/studio-dev-story/SKILL.md"
+    },
+    {
+      "name": "studio-estimate",
+      "description": "Estimate task effort from complexity, dependencies, velocity, risk. Structured estimate with confidence levels.",
+      "workflow": ".agents/game-studio/workflows/estimate/WORKFLOW.md",
+      "entry": ".agents/skills/studio-estimate/SKILL.md"
+    },
+    {
+      "name": "studio-gate-check",
+      "description": "Ready to advance between development phases? PASS/CONCERNS/NOT ASSESSED/FAIL with blockers and required artifacts. 'Can we move to production?'",
+      "workflow": ".agents/game-studio/workflows/gate-check/WORKFLOW.md",
+      "entry": ".agents/skills/studio-gate-check/SKILL.md"
+    },
+    {
+      "name": "studio-help",
+      "description": "What should I do next? Use when stuck or you don't know what to do.",
+      "workflow": ".agents/game-studio/workflows/help/WORKFLOW.md",
+      "entry": ".agents/skills/studio-help/SKILL.md"
+    },
+    {
+      "name": "studio-hotfix",
+      "description": "Emergency fix bypassing normal sprint process — hotfix branch, approvals tracked, backport verified, full audit trail.",
+      "workflow": ".agents/game-studio/workflows/hotfix/WORKFLOW.md",
+      "entry": ".agents/skills/studio-hotfix/SKILL.md"
+    },
+    {
+      "name": "studio-launch-checklist",
+      "description": "Launch readiness across every department: code, content, store, marketing, community, infrastructure, legal, go/no-go sign-offs.",
+      "workflow": ".agents/game-studio/workflows/launch-checklist/WORKFLOW.md",
+      "entry": ".agents/skills/studio-launch-checklist/SKILL.md"
+    },
+    {
+      "name": "studio-localize",
+      "description": "Localization pipeline — find hardcoded strings, extract string tables, cultural review, VO, RTL, enforce string freeze.",
+      "workflow": ".agents/game-studio/workflows/localize/WORKFLOW.md",
+      "entry": ".agents/skills/studio-localize/SKILL.md"
+    },
+    {
+      "name": "studio-map-systems",
+      "description": "Decompose a concept into individual systems, map dependencies, prioritize design order, create the systems index.",
+      "workflow": ".agents/game-studio/workflows/map-systems/WORKFLOW.md",
+      "entry": ".agents/skills/studio-map-systems/SKILL.md"
+    },
+    {
+      "name": "studio-milestone-review",
+      "description": "Milestone progress review — completeness, quality metrics, risk, go/no-go recommendation. At checkpoints or before a deadline.",
+      "workflow": ".agents/game-studio/workflows/milestone-review/WORKFLOW.md",
+      "entry": ".agents/skills/studio-milestone-review/SKILL.md"
+    },
+    {
+      "name": "studio-onboard",
+      "description": "Onboarding doc for a new contributor or agent — project state, conventions, priorities relevant to the specified role.",
+      "workflow": ".agents/game-studio/workflows/onboard/WORKFLOW.md",
+      "entry": ".agents/skills/studio-onboard/SKILL.md"
+    },
+    {
+      "name": "studio-patch-notes",
+      "description": "Player-facing patch notes from git history and changelogs. Translates developer language into player communication.",
+      "workflow": ".agents/game-studio/workflows/patch-notes/WORKFLOW.md",
+      "entry": ".agents/skills/studio-patch-notes/SKILL.md"
+    },
+    {
+      "name": "studio-perf-profile",
+      "description": "Performance profiling — find bottlenecks, measure against budgets, produce ranked optimization recommendations.",
+      "workflow": ".agents/game-studio/workflows/perf-profile/WORKFLOW.md",
+      "entry": ".agents/skills/studio-perf-profile/SKILL.md"
+    },
+    {
+      "name": "studio-playtest-report",
+      "description": "Structured playtest report template, or turn existing playtest notes into structured feedback.",
+      "workflow": ".agents/game-studio/workflows/playtest-report/WORKFLOW.md",
+      "entry": ".agents/skills/studio-playtest-report/SKILL.md"
+    },
+    {
+      "name": "studio-project-stage-detect",
+      "description": "Analyze project state, detect stage, identify gaps, recommend next steps. 'Where are we in development?'",
+      "workflow": ".agents/game-studio/workflows/project-stage-detect/WORKFLOW.md",
+      "entry": ".agents/skills/studio-project-stage-detect/SKILL.md"
+    },
+    {
+      "name": "studio-propagate-design-change",
+      "description": "A GDD changed — scan ADRs and the traceability index for now-stale architectural decisions. Impact report, guides resolution.",
+      "workflow": ".agents/game-studio/workflows/propagate-design-change/WORKFLOW.md",
+      "entry": ".agents/skills/studio-propagate-design-change/SKILL.md"
+    },
+    {
+      "name": "studio-prototype",
+      "description": "Concept prototype before GDDs — throwaway HTML, Engine or Paper build, PROCEED/PIVOT/KILL/NOT ASSESSED. After /brainstorm and /setup-engine.",
+      "workflow": ".agents/game-studio/workflows/prototype/WORKFLOW.md",
+      "entry": ".agents/skills/studio-prototype/SKILL.md"
+    },
+    {
+      "name": "studio-qa-plan",
+      "description": "QA test plan for a sprint — classifies stories by Logic/Integration/Visual/UI, covers automated tests, manual cases, smoke scope.",
+      "workflow": ".agents/game-studio/workflows/qa-plan/WORKFLOW.md",
+      "entry": ".agents/skills/studio-qa-plan/SKILL.md"
+    },
+    {
+      "name": "studio-quick-design",
+      "description": "Lightweight spec for small changes — tuning adjustments, minor mechanics. Embeds directly into stories; skips full GDD.",
+      "workflow": ".agents/game-studio/workflows/quick-design/WORKFLOW.md",
+      "entry": ".agents/skills/studio-quick-design/SKILL.md"
+    },
+    {
+      "name": "studio-regression-suite",
+      "description": "Map test coverage to GDD critical paths, find fixed bugs lacking regression tests, flag drift from new features.",
+      "workflow": ".agents/game-studio/workflows/regression-suite/WORKFLOW.md",
+      "entry": ".agents/skills/studio-regression-suite/SKILL.md"
+    },
+    {
+      "name": "studio-release-checklist",
+      "description": "Pre-release checklist — build verification, certification requirements, store metadata, launch readiness.",
+      "workflow": ".agents/game-studio/workflows/release-checklist/WORKFLOW.md",
+      "entry": ".agents/skills/studio-release-checklist/SKILL.md"
+    },
+    {
+      "name": "studio-retrospective",
+      "description": "Sprint or milestone retrospective from completed work, velocity, blockers. Actionable insights for the next iteration.",
+      "workflow": ".agents/game-studio/workflows/retrospective/WORKFLOW.md",
+      "entry": ".agents/skills/studio-retrospective/SKILL.md"
+    },
+    {
+      "name": "studio-reverse-document",
+      "description": "Generate missing design or architecture docs from existing implementation — works backwards from code and prototypes.",
+      "workflow": ".agents/game-studio/workflows/reverse-document/WORKFLOW.md",
+      "entry": ".agents/skills/studio-reverse-document/SKILL.md"
+    },
+    {
+      "name": "studio-review-all-gdds",
+      "description": "Holistic cross-GDD review — contradictions between systems, dominant strategies, economic imbalance, cognitive overload, pillar drift.",
+      "workflow": ".agents/game-studio/workflows/review-all-gdds/WORKFLOW.md",
+      "entry": ".agents/skills/studio-review-all-gdds/SKILL.md"
+    },
+    {
+      "name": "studio-scope-check",
+      "description": "Scope creep check — current scope versus the original plan. Flags additions, quantifies bloat, recommends cuts. 'Any scope creep?'",
+      "workflow": ".agents/game-studio/workflows/scope-check/WORKFLOW.md",
+      "entry": ".agents/skills/studio-scope-check/SKILL.md"
+    },
+    {
+      "name": "studio-security-audit",
+      "description": "Security audit — save tampering, cheat vectors, network exploits, data exposure, input validation. Before public or multiplayer release.",
+      "workflow": ".agents/game-studio/workflows/security-audit/WORKFLOW.md",
+      "entry": ".agents/skills/studio-security-audit/SKILL.md"
+    },
+    {
+      "name": "studio-settings",
+      "description": "View or change project config — effective merged values, or set locally in project.local.yaml.",
+      "workflow": ".agents/game-studio/workflows/settings/WORKFLOW.md",
+      "entry": ".agents/skills/studio-settings/SKILL.md"
+    },
+    {
+      "name": "studio-setup-engine",
+      "description": "Configure engine and version. Pins it in CLAUDE.md; WebSearch fills reference docs when the version is beyond LLM training data.",
+      "workflow": ".agents/game-studio/workflows/setup-engine/WORKFLOW.md",
+      "entry": ".agents/skills/studio-setup-engine/SKILL.md"
+    },
+    {
+      "name": "studio-skill-improve",
+      "description": "Improve a skill via a test-fix-retest loop — static checks, targeted fixes, keep or revert on score change.",
+      "workflow": ".agents/game-studio/workflows/skill-improve/WORKFLOW.md",
+      "entry": ".agents/skills/studio-skill-improve/SKILL.md"
+    },
+    {
+      "name": "studio-skill-test",
+      "description": "Validate skill files for structural compliance and behavioral correctness. Four modes: static linter, spec, category rubric, audit.",
+      "workflow": ".agents/game-studio/workflows/skill-test/WORKFLOW.md",
+      "entry": ".agents/skills/studio-skill-test/SKILL.md"
+    },
+    {
+      "name": "studio-smoke-check",
+      "description": "Critical-path smoke gate before QA hand-off — runs the automated suite. A failed check means the build is not QA-ready.",
+      "workflow": ".agents/game-studio/workflows/smoke-check/WORKFLOW.md",
+      "entry": ".agents/skills/studio-smoke-check/SKILL.md"
+    },
+    {
+      "name": "studio-soak-test",
+      "description": "Soak test protocol for extended play — what to observe and log for slow leaks, fatigue, late-appearing edge cases.",
+      "workflow": ".agents/game-studio/workflows/soak-test/WORKFLOW.md",
+      "entry": ".agents/skills/studio-soak-test/SKILL.md"
+    },
+    {
+      "name": "studio-sprint-plan",
+      "description": "New or updated sprint plan from the current milestone, completed work, and available capacity.",
+      "workflow": ".agents/game-studio/workflows/sprint-plan/WORKFLOW.md",
+      "entry": ".agents/skills/studio-sprint-plan/SKILL.md"
+    },
+    {
+      "name": "studio-sprint-status",
+      "description": "Fast, concise sprint snapshot — burndown and emerging risks for situational awareness. 'How is the sprint going?'",
+      "workflow": ".agents/game-studio/workflows/sprint-status/WORKFLOW.md",
+      "entry": ".agents/skills/studio-sprint-status/SKILL.md"
+    },
+    {
+      "name": "studio-start",
+      "description": "First-time onboarding — asks where you are, then guides you to the right workflow.",
+      "workflow": ".agents/game-studio/workflows/start/WORKFLOW.md",
+      "entry": ".agents/skills/studio-start/SKILL.md"
+    },
+    {
+      "name": "studio-story-done",
+      "description": "End-of-story completion review — verifies each acceptance criterion, checks GDD/ADR deviations, prompts code review, updates status.",
+      "workflow": ".agents/game-studio/workflows/story-done/WORKFLOW.md",
+      "entry": ".agents/skills/studio-story-done/SKILL.md"
+    },
+    {
+      "name": "studio-story-readiness",
+      "description": "Is a story implementation-ready? Checks clear acceptance criteria, open questions, ADR refs. READY/NEEDS WORK/BLOCKED/NOT ASSESSED.",
+      "workflow": ".agents/game-studio/workflows/story-readiness/WORKFLOW.md",
+      "entry": ".agents/skills/studio-story-readiness/SKILL.md"
+    },
+    {
+      "name": "studio-team-audio",
+      "description": "Orchestrate the audio team — audio-director, sound-designer, technical-artist, gameplay-programmer — direction through implementation.",
+      "workflow": ".agents/game-studio/workflows/team-audio/WORKFLOW.md",
+      "entry": ".agents/skills/studio-team-audio/SKILL.md"
+    },
+    {
+      "name": "studio-team-combat",
+      "description": "Orchestrate the combat team — game-designer, gameplay-programmer, ai-programmer, technical-artist, sound-designer, qa-tester — design through implement and validate.",
+      "workflow": ".agents/game-studio/workflows/team-combat/WORKFLOW.md",
+      "entry": ".agents/skills/studio-team-combat/SKILL.md"
+    },
+    {
+      "name": "studio-team-level",
+      "description": "Orchestrate the level team — level-designer, narrative-director, world-builder, art-director, systems-designer, qa-tester — for complete area creation.",
+      "workflow": ".agents/game-studio/workflows/team-level/WORKFLOW.md",
+      "entry": ".agents/skills/studio-team-level/SKILL.md"
+    },
+    {
+      "name": "studio-team-live-ops",
+      "description": "Orchestrate the live-ops team — live-ops-designer, economy-designer, analytics-engineer, community-manager, writer — for a season or live event.",
+      "workflow": ".agents/game-studio/workflows/team-live-ops/WORKFLOW.md",
+      "entry": ".agents/skills/studio-team-live-ops/SKILL.md"
+    },
+    {
+      "name": "studio-team-narrative",
+      "description": "Orchestrate the narrative team — narrative-director, writer, world-builder, level-designer — for story, world lore, narrative-driven levels.",
+      "workflow": ".agents/game-studio/workflows/team-narrative/WORKFLOW.md",
+      "entry": ".agents/skills/studio-team-narrative/SKILL.md"
+    },
+    {
+      "name": "studio-team-polish",
+      "description": "Orchestrate the polish team — performance-analyst, technical-artist, sound-designer, qa-tester — to optimize and harden a feature or area.",
+      "workflow": ".agents/game-studio/workflows/team-polish/WORKFLOW.md",
+      "entry": ".agents/skills/studio-team-polish/SKILL.md"
+    },
+    {
+      "name": "studio-team-qa",
+      "description": "Orchestrate the QA team through a full testing cycle — qa-lead strategy and test plan, qa-tester case writing, execution, sign-off.",
+      "workflow": ".agents/game-studio/workflows/team-qa/WORKFLOW.md",
+      "entry": ".agents/skills/studio-team-qa/SKILL.md"
+    },
+    {
+      "name": "studio-team-release",
+      "description": "Orchestrate the release team — release-manager, qa-lead, devops-engineer, producer — to execute a release from candidate to deployment.",
+      "workflow": ".agents/game-studio/workflows/team-release/WORKFLOW.md",
+      "entry": ".agents/skills/studio-team-release/SKILL.md"
+    },
+    {
+      "name": "studio-team-ui",
+      "description": "Orchestrate the UI team through the UX pipeline — authoring, visual design, implementation, review, polish. Uses /ux-design, /ux-review, studio templates.",
+      "workflow": ".agents/game-studio/workflows/team-ui/WORKFLOW.md",
+      "entry": ".agents/skills/studio-team-ui/SKILL.md"
+    },
+    {
+      "name": "studio-tech-debt",
+      "description": "Track, categorize and prioritize technical debt across the codebase — scans for debt indicators, maintains a register.",
+      "workflow": ".agents/game-studio/workflows/tech-debt/WORKFLOW.md",
+      "entry": ".agents/skills/studio-tech-debt/SKILL.md"
+    },
+    {
+      "name": "studio-test-evidence-review",
+      "description": "Quality review of test files and evidence — goes beyond existence, evaluates assertion coverage. ADEQUATE/INCOMPLETE/MISSING/NOT ASSESSED per story.",
+      "workflow": ".agents/game-studio/workflows/test-evidence-review/WORKFLOW.md",
+      "entry": ".agents/skills/studio-test-evidence-review/SKILL.md"
+    },
+    {
+      "name": "studio-test-flakiness",
+      "description": "Find flaky tests from CI logs — aggregates pass rates, spots intermittent failures, recommends quarantine. After multiple runs.",
+      "workflow": ".agents/game-studio/workflows/test-flakiness/WORKFLOW.md",
+      "entry": ".agents/skills/studio-test-flakiness/SKILL.md"
+    },
+    {
+      "name": "studio-test-helpers",
+      "description": "Generate engine-specific test helper libraries — assertion utilities, factory functions, mocks in the engine's test folder. Reduces boilerplate.",
+      "workflow": ".agents/game-studio/workflows/test-helpers/WORKFLOW.md",
+      "entry": ".agents/skills/studio-test-helpers/SKILL.md"
+    },
+    {
+      "name": "studio-test-setup",
+      "description": "Scaffold the test framework and CI — tests/ directory, engine test runner, GitHub Actions workflow. Once, before the first sprint.",
+      "workflow": ".agents/game-studio/workflows/test-setup/WORKFLOW.md",
+      "entry": ".agents/skills/studio-test-setup/SKILL.md"
+    },
+    {
+      "name": "studio-ux-design",
+      "description": "Section-by-section UX spec authoring for a screen, flow or HUD. Reads the player journey to provide context; also project-wide accessibility.",
+      "workflow": ".agents/game-studio/workflows/ux-design/WORKFLOW.md",
+      "entry": ".agents/skills/studio-ux-design/SKILL.md"
+    },
+    {
+      "name": "studio-ux-review",
+      "description": "Validate a UX spec, HUD design or pattern library — accessibility, GDD alignment, readiness. APPROVED / NOT ASSESSED / NEEDS REVISION / MAJOR REVISION NEEDED.",
+      "workflow": ".agents/game-studio/workflows/ux-review/WORKFLOW.md",
+      "entry": ".agents/skills/studio-ux-review/SKILL.md"
+    },
+    {
+      "name": "studio-vertical-slice",
+      "description": "Pre-production validation — end-to-end build to confirm the full loop is achievable before committing to Production. After GDDs, architecture, UX specs.",
+      "workflow": ".agents/game-studio/workflows/vertical-slice/WORKFLOW.md",
+      "entry": ".agents/skills/studio-vertical-slice/SKILL.md"
+    }
+  ],
+  "agents": [
+    {
+      "name": "studio-accessibility-specialist",
+      "role": ".agents/game-studio/roles/accessibility-specialist.md",
+      "config": ".codex/agents/studio-accessibility-specialist.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-ai-programmer",
+      "role": ".agents/game-studio/roles/ai-programmer.md",
+      "config": ".codex/agents/studio-ai-programmer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-analytics-engineer",
+      "role": ".agents/game-studio/roles/analytics-engineer.md",
+      "config": ".codex/agents/studio-analytics-engineer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-art-director",
+      "role": ".agents/game-studio/roles/art-director.md",
+      "config": ".codex/agents/studio-art-director.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-audio-director",
+      "role": ".agents/game-studio/roles/audio-director.md",
+      "config": ".codex/agents/studio-audio-director.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-community-manager",
+      "role": ".agents/game-studio/roles/community-manager.md",
+      "config": ".codex/agents/studio-community-manager.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-creative-director",
+      "role": ".agents/game-studio/roles/creative-director.md",
+      "config": ".codex/agents/studio-creative-director.toml",
+      "source_model": "opus"
+    },
+    {
+      "name": "studio-devops-engineer",
+      "role": ".agents/game-studio/roles/devops-engineer.md",
+      "config": ".codex/agents/studio-devops-engineer.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-economy-designer",
+      "role": ".agents/game-studio/roles/economy-designer.md",
+      "config": ".codex/agents/studio-economy-designer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-engine-programmer",
+      "role": ".agents/game-studio/roles/engine-programmer.md",
+      "config": ".codex/agents/studio-engine-programmer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-game-designer",
+      "role": ".agents/game-studio/roles/game-designer.md",
+      "config": ".codex/agents/studio-game-designer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-gameplay-programmer",
+      "role": ".agents/game-studio/roles/gameplay-programmer.md",
+      "config": ".codex/agents/studio-gameplay-programmer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-godot-csharp-specialist",
+      "role": ".agents/game-studio/roles/godot-csharp-specialist.md",
+      "config": ".codex/agents/studio-godot-csharp-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-godot-gdextension-specialist",
+      "role": ".agents/game-studio/roles/godot-gdextension-specialist.md",
+      "config": ".codex/agents/studio-godot-gdextension-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-godot-gdscript-specialist",
+      "role": ".agents/game-studio/roles/godot-gdscript-specialist.md",
+      "config": ".codex/agents/studio-godot-gdscript-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-godot-shader-specialist",
+      "role": ".agents/game-studio/roles/godot-shader-specialist.md",
+      "config": ".codex/agents/studio-godot-shader-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-godot-specialist",
+      "role": ".agents/game-studio/roles/godot-specialist.md",
+      "config": ".codex/agents/studio-godot-specialist.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-lead-programmer",
+      "role": ".agents/game-studio/roles/lead-programmer.md",
+      "config": ".codex/agents/studio-lead-programmer.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-level-designer",
+      "role": ".agents/game-studio/roles/level-designer.md",
+      "config": ".codex/agents/studio-level-designer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-live-ops-designer",
+      "role": ".agents/game-studio/roles/live-ops-designer.md",
+      "config": ".codex/agents/studio-live-ops-designer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-localization-lead",
+      "role": ".agents/game-studio/roles/localization-lead.md",
+      "config": ".codex/agents/studio-localization-lead.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-narrative-director",
+      "role": ".agents/game-studio/roles/narrative-director.md",
+      "config": ".codex/agents/studio-narrative-director.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-network-programmer",
+      "role": ".agents/game-studio/roles/network-programmer.md",
+      "config": ".codex/agents/studio-network-programmer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-performance-analyst",
+      "role": ".agents/game-studio/roles/performance-analyst.md",
+      "config": ".codex/agents/studio-performance-analyst.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-producer",
+      "role": ".agents/game-studio/roles/producer.md",
+      "config": ".codex/agents/studio-producer.toml",
+      "source_model": "opus"
+    },
+    {
+      "name": "studio-prototyper",
+      "role": ".agents/game-studio/roles/prototyper.md",
+      "config": ".codex/agents/studio-prototyper.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-qa-lead",
+      "role": ".agents/game-studio/roles/qa-lead.md",
+      "config": ".codex/agents/studio-qa-lead.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-qa-tester",
+      "role": ".agents/game-studio/roles/qa-tester.md",
+      "config": ".codex/agents/studio-qa-tester.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-release-manager",
+      "role": ".agents/game-studio/roles/release-manager.md",
+      "config": ".codex/agents/studio-release-manager.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-security-engineer",
+      "role": ".agents/game-studio/roles/security-engineer.md",
+      "config": ".codex/agents/studio-security-engineer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-sound-designer",
+      "role": ".agents/game-studio/roles/sound-designer.md",
+      "config": ".codex/agents/studio-sound-designer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-systems-designer",
+      "role": ".agents/game-studio/roles/systems-designer.md",
+      "config": ".codex/agents/studio-systems-designer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-technical-artist",
+      "role": ".agents/game-studio/roles/technical-artist.md",
+      "config": ".codex/agents/studio-technical-artist.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-technical-director",
+      "role": ".agents/game-studio/roles/technical-director.md",
+      "config": ".codex/agents/studio-technical-director.toml",
+      "source_model": "opus"
+    },
+    {
+      "name": "studio-tools-programmer",
+      "role": ".agents/game-studio/roles/tools-programmer.md",
+      "config": ".codex/agents/studio-tools-programmer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-ue-blueprint-specialist",
+      "role": ".agents/game-studio/roles/ue-blueprint-specialist.md",
+      "config": ".codex/agents/studio-ue-blueprint-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-ue-gas-specialist",
+      "role": ".agents/game-studio/roles/ue-gas-specialist.md",
+      "config": ".codex/agents/studio-ue-gas-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-ue-replication-specialist",
+      "role": ".agents/game-studio/roles/ue-replication-specialist.md",
+      "config": ".codex/agents/studio-ue-replication-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-ue-umg-specialist",
+      "role": ".agents/game-studio/roles/ue-umg-specialist.md",
+      "config": ".codex/agents/studio-ue-umg-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-ui-programmer",
+      "role": ".agents/game-studio/roles/ui-programmer.md",
+      "config": ".codex/agents/studio-ui-programmer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-unity-addressables-specialist",
+      "role": ".agents/game-studio/roles/unity-addressables-specialist.md",
+      "config": ".codex/agents/studio-unity-addressables-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-unity-dots-specialist",
+      "role": ".agents/game-studio/roles/unity-dots-specialist.md",
+      "config": ".codex/agents/studio-unity-dots-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-unity-shader-specialist",
+      "role": ".agents/game-studio/roles/unity-shader-specialist.md",
+      "config": ".codex/agents/studio-unity-shader-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-unity-specialist",
+      "role": ".agents/game-studio/roles/unity-specialist.md",
+      "config": ".codex/agents/studio-unity-specialist.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-unity-ui-specialist",
+      "role": ".agents/game-studio/roles/unity-ui-specialist.md",
+      "config": ".codex/agents/studio-unity-ui-specialist.toml",
+      "source_model": "sonnet"
+    },
+    {
+      "name": "studio-unreal-specialist",
+      "role": ".agents/game-studio/roles/unreal-specialist.md",
+      "config": ".codex/agents/studio-unreal-specialist.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-ux-designer",
+      "role": ".agents/game-studio/roles/ux-designer.md",
+      "config": ".codex/agents/studio-ux-designer.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-world-builder",
+      "role": ".agents/game-studio/roles/world-builder.md",
+      "config": ".codex/agents/studio-world-builder.toml",
+      "source_model": "inherit"
+    },
+    {
+      "name": "studio-writer",
+      "role": ".agents/game-studio/roles/writer.md",
+      "config": ".codex/agents/studio-writer.toml",
+      "source_model": "inherit"
+    }
+  ]
+}

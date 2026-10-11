@@ -1,0 +1,393 @@
+{
+  "initialize": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "protocolVersion": "2024-11-05",
+      "capabilities": {
+        "experimental": {},
+        "logging": {},
+        "prompts": {
+          "listChanged": true
+        },
+        "resources": {
+          "subscribe": false,
+          "listChanged": true
+        },
+        "tools": {
+          "listChanged": true
+        },
+        "extensions": {
+          "io.modelcontextprotocol/ui": {}
+        }
+      },
+      "serverInfo": {
+        "name": "mcp-for-unity-server",
+        "version": "3.4.8"
+      },
+      "instructions": "\nThis server provides tools to interact with the Unity Game Engine Editor.\n\nI have a dynamic tool system. Always check the mcpforunity://custom-tools resource first to see what special capabilities are available for the current project.\n\nTargeting Unity instances:\n- Use the resource mcpforunity://instances to list active Unity sessions (Name@hash).\n- When multiple instances are connected, call set_active_instance with the exact Name@hash before using tools/resources to pin routing for the whole session. The server will error if multiple are connected and no active instance is set.\n- Alternatively, pass unity_instance as a parameter on any individual tool call to route just that call (e.g. unity_instance=\"MyGame@abc123\", unity_instance=\"abc\" for a hash prefix, or unity_instance=\"6401\" for a port number in stdio mode). This does not change the session default.\n\nImportant Workflows:\n\nResources vs Tools:\n- Use RESOURCES to read editor state (mcpforunity://editor/state, mcpforunity://project/info, mcpforunity://project/tags, mcpforunity://tests, etc)\n- Use TOOLS to perform actions and mutations (manage_editor for play mode control, tag/layer management, etc)\n- Always check related resources before modifying the engine state with tools\n\nReading resources (read this before using ANY resource named below):\n- Resources are addressed by URI, never by name. A resource's name and URI are NOT interchangeable: names use underscores (e.g. editor_state) while URIs use slashes (e.g. mcpforunity://editor/state). Do NOT build a URI by swapping separators in the name — you will 404.\n- These instructions always spell resources as full mcpforunity:// URIs — read one exactly as written. If you only have a name (from resources/list or another tool's output), look its URI up in resources/list rather than guessing it.\n- Resource payloads are wrapped: the content lives under a top-level `data` object, so field paths are `data.<section>.<field>` (e.g. `data.advice.ready_for_tools`), not bare top-level fields.\n- The mcpforunity:// URI names the resource, not the server. Some clients take a separate server key on a resource read — in Codex, tools are exposed as mcp__unityMCP__* but resources/read wants server: \"unityMCP\". If a read fails with an unknown-server error, list resources first and use the key exactly as returned.\n\nScript Management:\n- After creating or modifying scripts (by your own tools or the `manage_script` tool) use `read_console` to check for compilation errors before proceeding\n- Only after successful compilation can new components/types be used\n- You can poll mcpforunity://editor/state and read `data.compilation.is_compiling` to check if the domain reload is complete, or `data.advice.ready_for_tools` for overall readiness\n\nScene Setup:\n- Always include a Camera and main Light (Directional Light) in new scenes\n- Create prefabs with `manage_asset` for reusable GameObjects\n- Use `manage_scene` to load, save, and query scene information\n\nPath Conventions:\n- Unless specified otherwise, all paths are relative to the project's `Assets/` folder\n- Use forward slashes (/) in paths for cross-platform compatibility\n\nConsole Monitoring:\n- Check `read_console` regularly to catch errors, warnings, and compilation status\n- Filter by log type (Error, Warning, Log) to focus on specific issues\n\nMenu Items:\n- Use `execute_menu_item` when you have read the mcpforunity://menu-items resource\n- This lets you interact with Unity's menu system and third-party tools\n\nUnity API Verification (requires 'docs' tool group):\n- When the 'docs' tool group is active, use `unity_reflect` and `unity_docs` to verify Unity API details before answering questions or writing C# code. LLM training data frequently contains incorrect, outdated, or hallucinated Unity APIs.\n- BEFORE answering Unity API questions: search the project's assets (`manage_asset`) and reflect the API (`unity_reflect`) to verify. Do NOT rely on training data alone.\n- Common hallucination areas: shaders and materials (always search assets for actual shader names), package-specific APIs (Input System, Cinemachine, ProBuilder, NavMesh, URP/HDRP), and APIs that changed between Unity versions.\n- Workflow: `unity_reflect search` → `unity_reflect get_type` → `unity_reflect get_member` → `unity_docs get_doc` (if you need examples/caveats).\n- For shader/material questions: use `manage_asset(action=\"search\", filter_type=\"Shader\")` to find actual shaders in the project before recommending one.\n\nPayload sizing & paging (important):\n- Many Unity queries can return very large JSON. Prefer **paged + summary-first** calls.\n- `manage_scene(action=\"get_hierarchy\")`:\n  - Use `page_size` + `cursor` and follow `next_cursor` until null.\n  - `page_size` is **items per page**; recommended starting point: **50**.\n- `manage_gameobject(action=\"get_components\")`:\n  - Start with `include_properties=false` (metadata-only) and small `page_size` (e.g. **10-25**).\n  - Only request `include_properties=true` when needed; keep `page_size` small (e.g. **3-10**) to bound payloads.\n- `manage_asset(action=\"search\")`:\n  - Use paging (`page_size`, `page_number`) and keep `page_size` modest (e.g. **25-50**) to avoid token-heavy responses.\n  - Keep `generate_preview=false` unless you explicitly need thumbnails (previews may include large base64 payloads).\n"
+    }
+  },
+  "resources": {
+    "jsonrpc": "2.0",
+    "id": 2,
+    "result": {
+      "resources": [
+        {
+          "name": "editor_state",
+          "uri": "mcpforunity://editor/state",
+          "description": "Canonical editor readiness snapshot. Includes advice and server-computed staleness.\n\nURI: mcpforunity://editor/state",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "editor_active_tool",
+          "uri": "mcpforunity://editor/active-tool",
+          "description": "Currently active editor tool (Move, Rotate, Scale, etc.) and transform handle settings.\n\nURI: mcpforunity://editor/active-tool",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "cameras",
+          "uri": "mcpforunity://scene/cameras",
+          "description": "List all cameras in the scene (Unity Camera + CinemachineCamera) with status. Includes Brain state, Cinemachine camera priorities, pipeline components, follow/lookAt targets, and Unity Camera info.\n\nURI: mcpforunity://scene/cameras",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "custom_tools",
+          "uri": "mcpforunity://custom-tools",
+          "description": "Lists custom tools available for the active Unity project.\n\nURI: mcpforunity://custom-tools",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "gameobject_api",
+          "uri": "mcpforunity://scene/gameobject-api",
+          "description": "Documentation for GameObject resources. Use find_gameobjects tool to get instance IDs, then access resources below.\n\nURI: mcpforunity://scene/gameobject-api",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "project_layers",
+          "uri": "mcpforunity://project/layers",
+          "description": "All layers defined in the project's TagManager with their indices (0-31). Read this before using add_layer or remove_layer tools.\n\nURI: mcpforunity://project/layers",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "menu_items",
+          "uri": "mcpforunity://menu-items",
+          "description": "Provides a list of all menu items.\n\nURI: mcpforunity://menu-items",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "prefab_api",
+          "uri": "mcpforunity://prefab-api",
+          "description": "Documentation for Prefab resources. Use manage_asset action=search filterType=Prefab to find prefabs, then access resources below.\n\nURI: mcpforunity://prefab-api",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "editor_prefab_stage",
+          "uri": "mcpforunity://editor/prefab-stage",
+          "description": "Current prefab editing context if a prefab is open in isolation mode. Returns isOpen=false if no prefab is being edited.\n\nURI: mcpforunity://editor/prefab-stage",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "project_info",
+          "uri": "mcpforunity://project/info",
+          "description": "Static project information including root path, Unity version, and platform. This data rarely changes.\n\nURI: mcpforunity://project/info",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "renderer_features",
+          "uri": "mcpforunity://pipeline/renderer-features",
+          "description": "Lists all URP renderer features on the active renderer with type, name, and active state.",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "rendering_stats",
+          "uri": "mcpforunity://rendering/stats",
+          "description": "Snapshot of rendering performance statistics (draw calls, batches, triangles, frame time, etc.).",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "editor_selection",
+          "uri": "mcpforunity://editor/selection",
+          "description": "Detailed information about currently selected objects in the editor, including GameObjects, assets, and their properties.\n\nURI: mcpforunity://editor/selection",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "project_tags",
+          "uri": "mcpforunity://project/tags",
+          "description": "All tags defined in the project's TagManager. Read this before using add_tag or remove_tag tools.\n\nURI: mcpforunity://project/tags",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "get_tests",
+          "uri": "mcpforunity://tests",
+          "description": "Provides the first page of Unity tests (default 50 items). For filtering or pagination, use the run_tests tool instead.\n\nURI: mcpforunity://tests",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "tool_groups",
+          "uri": "mcpforunity://tool-groups",
+          "description": "Available tool groups and their tools. Use manage_tools to activate/deactivate groups per session.\n\nURI: mcpforunity://tool-groups",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "unity_instances",
+          "uri": "mcpforunity://instances",
+          "description": "Lists all running Unity Editor instances with their details.\n\nURI: mcpforunity://instances",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "volumes",
+          "uri": "mcpforunity://scene/volumes",
+          "description": "Lists all Volume components in the active scene with their profiles, effects, and settings.",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        },
+        {
+          "name": "editor_windows",
+          "uri": "mcpforunity://editor/windows",
+          "description": "All currently open editor windows with their titles, types, positions, and focus state.\n\nURI: mcpforunity://editor/windows",
+          "mimeType": "text/plain",
+          "_meta": {
+            "fastmcp": {
+              "tags": []
+            }
+          }
+        }
+      ]
+    }
+  },
+  "tools": [
+    "batch_execute",
+    "debug_request_context",
+    "execute_code",
+    "execute_custom_tool",
+    "execute_menu_item",
+    "find_gameobjects",
+    "find_in_file",
+    "generate_audio",
+    "generate_image",
+    "generate_model",
+    "import_model",
+    "import_model_file",
+    "manage_animation",
+    "manage_asset",
+    "manage_build",
+    "manage_camera",
+    "manage_components",
+    "manage_editor",
+    "manage_gameobject",
+    "manage_graphics",
+    "manage_material",
+    "manage_packages",
+    "manage_physics",
+    "manage_prefabs",
+    "manage_probuilder",
+    "manage_profiler",
+    "manage_scene",
+    "refresh_unity",
+    "apply_text_edits",
+    "create_script",
+    "delete_script",
+    "validate_script",
+    "manage_script",
+    "manage_script_capabilities",
+    "get_sha",
+    "manage_scriptable_object",
+    "manage_shader",
+    "manage_texture",
+    "manage_tools",
+    "manage_ui",
+    "manage_vfx",
+    "read_console",
+    "run_tests",
+    "get_test_job",
+    "script_apply_edits",
+    "set_active_instance",
+    "unity_docs",
+    "unity_reflect"
+  ],
+  "mcpforunity://editor/state": {
+    "jsonrpc": "2.0",
+    "id": 4,
+    "result": {
+      "contents": [
+        {
+          "uri": "mcpforunity://editor/state",
+          "mimeType": "text/plain",
+          "text": "{\"success\":true,\"message\":\"Retrieved editor state.\",\"error\":null,\"data\":{\"schema_version\":\"unity-mcp/editor_state@2\",\"observed_at_unix_ms\":1791692152887,\"sequence\":7,\"unity\":{\"instance_id\":\"Wordz-unity@cc1ba61277aae596\",\"unity_version\":\"2022.3.56f1c1\",\"project_id\":null,\"platform\":\"WindowsEditor\",\"is_batch_mode\":false},\"editor\":{\"is_focused\":false,\"play_mode\":{\"is_playing\":false,\"is_paused\":false,\"is_changing\":false},\"active_scene\":{\"path\":\"Assets/Wordz/Scenes/Bootstrap.unity\",\"guid\":\"56ff6cfd06a043a4a88f8f01ee03fe5b\",\"name\":\"Bootstrap\"}},\"activity\":{\"phase\":\"idle\",\"since_unix_ms\":1791692147905,\"reasons\":[\"tick\"]},\"compilation\":{\"is_compiling\":false,\"is_domain_reload_pending\":false,\"last_compile_started_unix_ms\":null,\"last_compile_finished_unix_ms\":null,\"last_domain_reload_before_unix_ms\":null,\"last_domain_reload_after_unix_ms\":1791692145578},\"assets\":{\"is_updating\":false,\"external_changes_dirty\":false,\"external_changes_last_seen_unix_ms\":null,\"external_changes_dirty_since_unix_ms\":null,\"external_changes_last_cleared_unix_ms\":null,\"refresh\":{\"is_refresh_in_progress\":false,\"last_refresh_requested_unix_ms\":null,\"last_refresh_finished_unix_ms\":null}},\"tests\":{\"is_running\":false,\"mode\":null,\"current_job_id\":null,\"started_unix_ms\":null,\"started_by\":\"unknown\",\"last_run\":null},\"transport\":{\"unity_bridge_connected\":null,\"last_message_unix_ms\":null},\"settings\":{\"batch_execute_max_commands\":25},\"advice\":{\"ready_for_tools\":true,\"blocking_reasons\":[],\"recommended_retry_after_ms\":0,\"recommended_next_action\":\"none\"},\"staleness\":{\"age_ms\":140,\"is_stale\":false}},\"hint\":null}"
+        }
+      ]
+    }
+  },
+  "mcpforunity://scene/cameras": {
+    "jsonrpc": "2.0",
+    "id": 4,
+    "result": {
+      "contents": [
+        {
+          "uri": "mcpforunity://scene/cameras",
+          "mimeType": "text/plain",
+          "text": "{\"success\":true,\"message\":null,\"error\":null,\"data\":{\"brain\":null,\"cinemachineCameras\":[],\"unityCameras\":[{\"instanceID\":27286,\"name\":\"Main Camera\",\"depth\":0.0,\"fieldOfView\":60.0,\"hasBrain\":false}],\"cinemachineInstalled\":false},\"hint\":null}"
+        }
+      ]
+    }
+  },
+  "mcpforunity://project/info": {
+    "jsonrpc": "2.0",
+    "id": 4,
+    "result": {
+      "contents": [
+        {
+          "uri": "mcpforunity://project/info",
+          "mimeType": "text/plain",
+          "text": "{\"success\":true,\"message\":\"Retrieved project info.\",\"error\":null,\"data\":{\"projectRoot\":\"E:/Wordz/Wordz-unity\",\"projectName\":\"Wordz-unity\",\"unityVersion\":\"2022.3.56f1c1\",\"platform\":\"StandaloneWindows64\",\"assetsPath\":\"E:/Wordz/Wordz-unity/Assets\"},\"hint\":null}"
+        }
+      ]
+    }
+  },
+  "mcpforunity://instances": {
+    "jsonrpc": "2.0",
+    "id": 4,
+    "result": {
+      "contents": [
+        {
+          "uri": "mcpforunity://instances",
+          "mimeType": "text/plain",
+          "text": "{\"success\": true, \"transport\": \"http\", \"instance_count\": 1, \"instances\": [{\"id\": \"Wordz-unity@cc1ba61277aae596\", \"name\": \"Wordz-unity\", \"hash\": \"cc1ba61277aae596\", \"unity_version\": \"2022.3.56f1c1\", \"connected_at\": \"2026-10-11T04:15:46.980434+00:00\", \"session_id\": \"bb8dd242-1a09-4d07-bbdf-d1264fe2fc65\"}]}"
+        }
+      ]
+    }
+  },
+  "console_errors": {
+    "jsonrpc": "2.0",
+    "id": 5,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"success\":true,\"message\":\"Retrieved 0 log entries.\",\"data\":[]}"
+        }
+      ],
+      "structuredContent": {
+        "success": true,
+        "message": "Retrieved 0 log entries.",
+        "data": []
+      },
+      "isError": false
+    }
+  },
+  "active_scene": {
+    "jsonrpc": "2.0",
+    "id": 6,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"success\":true,\"message\":\"Retrieved active scene information.\",\"data\":{\"name\":\"Bootstrap\",\"path\":\"Assets/Wordz/Scenes/Bootstrap.unity\",\"buildIndex\":0,\"isDirty\":false,\"isLoaded\":true,\"rootCount\":2}}"
+        }
+      ],
+      "structuredContent": {
+        "success": true,
+        "message": "Retrieved active scene information.",
+        "data": {
+          "name": "Bootstrap",
+          "path": "Assets/Wordz/Scenes/Bootstrap.unity",
+          "buildIndex": 0,
+          "isDirty": false,
+          "isLoaded": true,
+          "rootCount": 2
+        }
+      },
+      "isError": false
+    }
+  }
+}

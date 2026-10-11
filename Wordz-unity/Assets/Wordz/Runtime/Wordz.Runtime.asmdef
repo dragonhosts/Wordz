@@ -1,0 +1,7 @@
+{
+  "name": "Wordz.Runtime",
+  "rootNamespace": "Wordz",
+  "references": [
+    "UnityGameFramework.Runtime"
+  ]
+}

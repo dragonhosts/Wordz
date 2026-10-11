@@ -1,0 +1,6 @@
+# Studio roles inherit the parent model and runtime permissions.
+[agents]
+enabled = true
+
+[mcp_servers.unityMCP]
+url = "http://127.0.0.1:8080/mcp"

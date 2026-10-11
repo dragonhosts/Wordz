@@ -1,0 +1,20 @@
+{
+  "jsonrpc": "2.0",
+  "id": 20,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"success\":true,\"message\":\"Attempted to execute menu item: 'Wordz/Validate Framework Startup'. Check Unity logs for confirmation or errors.\",\"error\":null,\"data\":null,\"hint\":null}"
+      }
+    ],
+    "structuredContent": {
+      "success": true,
+      "message": "Attempted to execute menu item: 'Wordz/Validate Framework Startup'. Check Unity logs for confirmation or errors.",
+      "error": null,
+      "data": null,
+      "hint": null
+    },
+    "isError": false
+  }
+}

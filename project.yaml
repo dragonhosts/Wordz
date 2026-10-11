@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "framework": {
+    "version": "1.1.2",
+    "adapter": "codex-wordz-1",
+    "last_upgraded": "2026-10-11"
+  },
+  "project": {
+    "name": "Wordz",
+    "stage": "Concept"
+  },
+  "engine": {
+    "name": "Unity",
+    "version": "2022.3.56f1c1",
+    "root": "Wordz-unity",
+    "render_pipeline": "Built-in",
+    "input": "Legacy Input Manager"
+  },
+  "paths": {
+    "code_root": "Wordz-unity/Assets/Wordz",
+    "test_root": "Wordz-unity/Assets/Wordz/Tests",
+    "design_root": "DesignDoc",
+    "plans_root": "docs/superpowers/plans",
+    "specs_root": "docs/superpowers/specs",
+    "evidence_root": "production/qa/evidence"
+  },
+  "specialists": {
+    "engine": "studio-unity-specialist",
+    "gameplay": "studio-gameplay-programmer",
+    "ui": "studio-unity-ui-specialist"
+  },
+  "modes": {
+    "rigor": "minimal",
+    "automation": "guided",
+    "automation_always_ask": [
+      "scope_changes",
+      "file_deletions",
+      "schema_changes"
+    ]
+  },
+  "commands": {
+    "smoke": null,
+    "test": null,
+    "run": null
+  },
+  "features": {
+    "gameframework": true,
+    "native_subagents": true,
+    "unity_mcp": true
+  },
+  "workflow_overrides": {
+    "system_overrides": {}
+  },
+  "testing": {
+    "strict": {
+      "logic": true,
+      "integration": true,
+      "visual": true,
+      "ui": true,
+      "config": false
+    }
+  }
+}

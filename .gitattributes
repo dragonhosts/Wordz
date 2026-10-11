@@ -1,0 +1,5 @@
+# Preserve the exact upstream snapshot bytes for source hash verification.
+.agents/game-studio/upstream/** -text
+
+# Keep the pinned third-party framework byte-for-byte across checkouts.
+Wordz-unity/Assets/ThirdParty/GameFramework/** -text

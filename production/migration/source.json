@@ -1,0 +1,18 @@
+{
+  "source_project": "E:\\EchoChronicle",
+  "migrated": "2026-10-11",
+  "framework_snapshot": "0bd865eab4b76083189d69ee60cff35fc2cd4d6d9d834550b8615fbb848dace8",
+  "template": "C:\\Program Files\\Unity\\Hub\\Editor\\2022.3.56f1c1\\Editor\\Data\\Resources\\PackageManager\\ProjectTemplates\\com.unity.template.2d-7.0.3.tgz",
+  "template_sha256": "de178d5d2d5d8a7baebb3f1b59692a2391e99883569de5325f3a8901c946d179",
+  "excluded": [
+    "gameplay",
+    "historical plans",
+    "historical tasks",
+    "test evidence",
+    "Library",
+    "Builds",
+    "git history",
+    "remote configuration"
+  ],
+  "gameframework_files": 627
+}

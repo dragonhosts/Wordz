@@ -1,0 +1,11 @@
+{
+  "name": "Wordz.Editor",
+  "references": [
+    "Wordz.Runtime",
+    "UnityGameFramework.Runtime",
+    "MCPForUnity.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}
